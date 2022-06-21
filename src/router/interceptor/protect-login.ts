@@ -2,7 +2,7 @@ import storage from '@/utils/storage'
 
 export default (to, from, next) => {
   let target
-
+  debugger
   if (to.name === 'login' && storage.getItem('token')) {
     target = { name: from.name }
   }

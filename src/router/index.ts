@@ -4,15 +4,15 @@ import protectLogin from './interceptor/protect-login'
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name:'Home',
+    name:'home',
+    meta: {
+      noLogin: true
+    },
     component: () => import("@/views/Home/index.vue")
   },
   {
     path: '/login',
     name:'login',
-    meta: {
-      noLogin: true
-    },
     component: () => import("@/views/Login/index.vue")
   },
 ]

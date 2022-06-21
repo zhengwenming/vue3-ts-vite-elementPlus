@@ -95,5 +95,9 @@ define: {
       }
     }
   },
+  //dev开发优化加载速度
+  optimizeDeps: {
+    include: ['axios'],
+  },
   plugins: [vue()]
 })
