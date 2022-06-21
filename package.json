@@ -1,0 +1,34 @@
+{
+  "name": "vue3-ts-vite-elementplus",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npm run serve",
+    "serve": "npm run serve-dev",
+    "serve-dev": "cross-env VUE_APP_API_ENV=dev vite",
+    "serve-uat": "cross-env VUE_APP_API_ENV=uat vite",
+    "serve-prd": "cross-env VUE_APP_API_ENV=prd vite",
+    "build": "npm run build-prd",
+    "build-prd": "cross-env VUE_APP_API_ENV=prd vite build",
+    "build-uat": "cross-env VUE_APP_API_ENV=uat vite build",
+    "build-dev": "cross-env VUE_APP_API_ENV=dev vite build",
+    "build-rancher-dev": "cross-env VUE_APP_API_ENV=rancher_dev vite build",
+    "build-rancher-uat": "cross-env VUE_APP_API_ENV=rancher_uat vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "axios": "^0.27.2",
+    "vue": "^3.2.25",
+    "vue-router": "^4.0.13",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^2.3.3",
+    "cross-env": "^7.0.3",
+    "element-plus": "^2.2.6",
+    "sass": "^1.52.3",
+    "typescript": "^4.5.4",
+    "vite": "^2.9.9",
+    "vue-tsc": "^0.34.7"
+  }
+}

@@ -1,0 +1,458 @@
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC",
+    "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+
+.el-main {
+  padding: 12px;
+}
+.el-textarea .el-textarea__inner {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Helvetica Neue", "PingFang SC", "Noto Sans", "Noto Sans CJK SC",
+    "Microsoft YaHei", "微软雅黑", sans-serif;
+}
+.red-require-tip::before{
+  content: '*';
+  color: red;
+}
+/* 表格 boolean 类型字段前的圆点样式 */
+.follow-status {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: relative;
+  left: -6px;
+  top: -1px;
+  background-color: #67c23a;
+}
+.follow-status-true {
+  @extend .follow-status;
+  color: #67c23a;
+  background-color: #67c23a;
+}
+.follow-status-false {
+  @extend .follow-status;
+  color: #c0c4cc;
+  background-color: #c0c4cc;
+}
+
+/* 设置tr隔行变色 */
+.table-warp {
+  position: relative;
+  // min-height: 400px;
+  // border: 1px solid #EBEEF5;
+  border: 1px solid rgba(228, 231, 237, 0.44);
+  border-bottom: 0;
+  tr:nth-child(even) {
+    // background-color: rgba($primaryColor, .05);
+  }
+  th,
+  td {
+    .el-button {
+      // padding: 4px 0 !important;
+      padding: 4px 0;
+    }
+  }
+  thead th {
+    color: #444;
+    // background: rgba($primaryColor, .2);
+    background-color: #ecf5ff;
+    // color: #0d0d0d;
+  }
+}
+// 表格无数据样式修改
+.el-table__empty-block {
+  height: 200px !important;
+}
+
+/* 超出宽度隐藏并显示省略符 */
+.text-overflow {
+  display: inline-block;
+
+  /*超出部分隐藏*/
+  overflow: hidden;
+
+  /* 超出部分显示省略号 */
+  text-overflow: ellipsis;
+
+  /* 规定段落中的文本不进行换行 */
+  white-space: nowrap;
+}
+
+/* 标签样式 */
+.tag-group {
+  .tag-group-title {
+    line-height: 20px;
+    margin-top: 10px;
+    font-weight: 400;
+  }
+  .tag-item {
+    margin-right: 6px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    border: 0;
+    color: #999999;
+  }
+  .tag-self {
+    border-color: $primaryColor;
+    background-color: $primaryColor;
+    color: #ffffff;
+  }
+  .tag-active {
+    border-color: rgba($primaryColor, 0.093);
+    background-color: rgba($primaryColor, 0.093);
+    color: #ffffff;
+  }
+}
+
+/* Card计划模板样式 */
+.model-card {
+  position: relative;
+  .card-item {
+    margin-bottom: 10px;
+    &:hover {
+      .close-card {
+        display: block;
+      }
+    }
+    .close-card {
+      display: none;
+      font-size: 26px;
+      color: #ababab;
+      cursor: pointer;
+      position: absolute;
+      right: -8px;
+      top: -10px;
+      z-index: 999;
+    }
+  }
+}
+// textarea
+.textarea {
+  width: 100%;
+  min-height: 120px;
+  resize: none;
+  padding: 0 10px;
+  box-sizing: border-box;
+  line-height: 28px;
+  font-size: 14px;
+}
+
+// 聊天界面滚动条样式
+.chat-scroll-bar::-webkit-scrollbar {
+  width: 8px;
+  height: 1px;
+  overflow-y: auto;
+  position: fixed;
+  top: 0;
+  left: 0;
+  position: absolute;
+  z-index: 999999999999;
+  // background-color: rgbc(gray, .2);
+  // color: White;
+}
+.chat-scroll-bar:hover {
+  overflow: hidden;
+}
+.chat-scroll-bar:hover::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+  background: rgba($primaryColor, 0.01);
+}
+
+// 通用滚动条样式 dialog 全局修改
+.el-table__body-wrapper::-webkit-scrollbar,
+.el-dialog__wrapper::-webkit-scrollbar,
+.scroll-bar::-webkit-scrollbar {
+  width: 8px;
+  height: 1px;
+  overflow-y: auto;
+  background-color: #fff;
+  color: #fff;
+  overflow: hidden;
+}
+.el-table__body-wrapper::-webkit-scrollbar {
+  height: 8px;
+  overflow-x: auto;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb,
+.el-dialog__wrapper::-webkit-scrollbar-thumb,
+.scroll-bar::-webkit-scrollbar-thumb {
+  background: #8c8c8c;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-track,
+.el-dialog__wrapper::-webkit-scrollbar-track,
+.scroll-bar::-webkit-scrollbar-track {
+  background: #e5e5e5;
+}
+
+// table 超出内容区域隐藏，鼠标移上显示内容
+.el-tooltip__popper {
+  // min-width: 150px;
+  max-width: 20%;
+}
+/*
+.el-tooltip__popper,
+.el-tooltip__popper.is-dark {
+  transform-origin: center bottom;
+  background: #fff !important;
+  color: #606266 !important;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  word-break: break-all;
+  position: absolute;
+  margin-top: 50px;
+  min-width: 150px;
+  border-radius: 4px;
+  border: 1px solid #ebeef5;
+  padding: 12px;
+  z-index: 2000;
+  line-height: 1.6;
+  text-align: justify;
+  font-size: 14px;
+  .popper__arrow::after {
+    border-top-color: #fff;
+  }
+}
+*/
+
+// 分组模块公用样式
+.group-manager-warp {
+  padding: 0 10px;
+  .group-title {
+    display: inline-block;
+    font-size: 15px;
+    color: #909399;
+    line-height: 28px;
+    margin-bottom: 4px;
+    .sel-count {
+      color: $primaryColor;
+    }
+  }
+
+  .group-list {
+    position: relative;
+    font-size: 16px;
+    margin-top: 20px;
+    line-height: 28px;
+    max-height: 260px;
+    overflow: auto;
+    .group-list-item {
+      height: 36px;
+      line-height: 34px;
+      display: flex;
+      vertical-align: middle;
+
+      .group-name {
+        line-height: 34px;
+        min-width: 160px;
+        margin-right: 0;
+      }
+      .del-group-cbox {
+        position: relative;
+        top: 0;
+        font-size: 14px;
+        display: none;
+        color: $primaryColor;
+        cursor: pointer;
+        span {
+          margin-right: 10px;
+        }
+      }
+      .del-group {
+        position: relative;
+        // top: -7px;
+        top: 0;
+        font-size: 14px;
+        display: none;
+        color: $primaryColor;
+        cursor: pointer;
+        margin-left: 10px;
+      }
+    }
+    .group-list-item:hover {
+      .del-group,
+      .del-group-cbox {
+        display: block;
+      }
+    }
+  }
+}
+// 分组下拉框样式
+.select-option-warp {
+  display: flex;
+  justify-content: space-between;
+
+  .item-group-name {
+    margin: 0 10px;
+  }
+  .item-group-save {
+    width: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    i {
+      position: relative;
+      left: -8px;
+    }
+  }
+  .item-group-oper {
+    visibility: hidden;
+    span {
+      padding-left: 10px;
+      color: $primaryColor;
+      cursor: pointer;
+      font-size: 13px;
+    }
+  }
+  &:hover {
+    .item-group-oper {
+      // display: block;
+      visibility: visible;
+    }
+  }
+}
+
+.defaultColor {
+  color: $primaryColor !important;
+  cursor: pointer;
+}
+.mr4 {
+  margin-right: 4px !important;
+}
+.ml4 {
+  margin-left: 4px !important;
+}
+.mb4 {
+  margin-bottom: 4px !important;
+}
+.mr4 {
+  margin-right: 4px !important;
+}
+.ml10 {
+  margin-left: 10px;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.pt10 {
+  padding-top: 10px;
+}
+.pb10 {
+  padding-bottom: 10px;
+}
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+.tr {
+  text-align: right;
+}
+
+// textarea 紧致拉伸
+.el-textarea .el-textarea__inner {
+  resize: none;
+}
+// el-message-box__title 按钮大小
+.el-message-box__headerbtn {
+  font-size: 22px !important;
+}
+
+// 全局修改  dialog 样式
+.el-dialog__header {
+  text-align: left;
+}
+
+.el-dialog__headerbtn {
+  font-size: 22px !important;
+}
+
+.el-dialog--center .el-dialog__footer {
+  text-align: right;
+}
+
+// 全局修改 input+search 组合 中 search 按钮对齐问题
+.el-input-group__append > .el-button {
+  padding-bottom: 1px;
+}
+
+th.el-table-column--selection > .cell {
+  // text-align: center;
+  padding-left: 15px;
+}
+
+// 无数据样式
+
+.empty-data {
+  color: #999999;
+  font-size: 15px;
+  text-align: center;
+  padding: 20px 0;
+}
+.empty-div {
+  @extend .empty-data;
+  line-height: 200px;
+  height: 200px;
+  width: 100%;
+  text-align: center;
+}
+// 预览大图 关闭按钮
+.el-image-viewer__close {
+  .el-icon-circle-close {
+    color: #fff !important;
+  }
+}
+
+/* 时间轴样式调整 */
+.el-timeline {
+  margin: 1px;
+}
+
+.el-timeline-item__content {
+  position: relative;
+  top: -4px;
+}
+.el-timeline-item__timestamp.is-top {
+  position: relative;
+  top: -4px;
+}
+.count-warp {
+  height: 36px;
+  line-height: 36px;
+  padding-left: 20px;
+  border: 1px solid #91d5ff;
+  background: #e6f7ff;
+  // margin-top: 20px;
+  border-radius: 4px;
+  font-size: 14px;
+  b {
+    font-size: 16px;
+  }
+}
+// 消息通知
+.el-badge__content.is-dot {
+  height: 12px;
+  width: 12px;
+}
+// 禁用
+.disable {
+  pointer-events: none;
+}
+
+// new style
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.flex--column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
