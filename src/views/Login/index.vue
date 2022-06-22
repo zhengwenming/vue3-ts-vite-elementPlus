@@ -1,28 +1,26 @@
 <template>
-  <div class="login-wrap">
-
-        <div ref="backRef" class="ms-login-back"></div>
-
-        <div ref="titleRef" class="sys-title">爱小心店铺后台管理系统</div>
-
-        <div ref="logoRef" class="ms-logo"></div>
-
+        <div class="ms-login-back">
+            <div  class="sys-title">爱心云健康后台管理系统</div>
+            <div  class="ms-logo"></div>
+        </div>
         <div class="ms-login">
             <h2 class="title" style="padding-top: 20px;">系统登录</h2>
-           </div>
-  </div>
+        </div>
 </template>
 
 <style scoped lang="scss">
-.login-wrap {
-    overflow: hidden;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background-size: 100%;
-    background-color: #f5f5f5;
-
-    .ms-logo {
+    .ms-login-back {
+        background: url(@/assets/login-bg.png) no-repeat;
+        background-size: 100%;
+        width: 100%;
+        height: 100%;
+        .sys-title {
+                font: bold 3em Tahoma, Helvetica, Arial, '宋体', sans-serif;
+                color: #ffffff;
+                padding-top: 6%;
+                padding-right: 50%;
+            }
+        .ms-logo {
         position: absolute;
         background: url(@/assets/login-logo.jpg) no-repeat;
         width: 118px;
@@ -30,27 +28,10 @@
         top: 50%;
         left: 50%;
         margin: -300px 0px 0px 560px;
+        }
     }
 
-    .ms-login-back {
-        position: absolute;
-        background: url(@/assets/login-bg.png) no-repeat;
-        background-size: cover;
-        width: 1366px;
-        height: 768px;
-        top: 50%;
-        left: 50%;
-        margin: -384px 0px 0px -684px;
-    }
-
-    .sys-title {
-        position: absolute;
-        font: bold 3em Tahoma, Helvetica, Arial, '宋体', sans-serif;
-        color: #ffffff;
-        top: 50%;
-        left: 50%;
-        margin: -300px 0px 0px -656px;
-    }
+    
 
     .ms-login {
         position: absolute;
@@ -85,5 +66,5 @@
             }
         }
     }
-}
+
 </style>

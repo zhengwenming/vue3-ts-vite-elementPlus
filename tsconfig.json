@@ -2,22 +2,42 @@
   "compilerOptions": {
     "target": "esnext",
     "useDefineForClassFields": true,
+    // 生成代码的模板标准
     "module": "esnext",
     "moduleResolution": "node",
+    //是否允许在ts文件中引入js
+    "allowJs": true,
+    //使用js严格语法模式
     "strict": true,
+    // 模块基本目录路径为当前文件根路径下
     "baseUrl": "./",
+    // 路径映射到基于baseUrl路径下的别名
     "paths": {
       "@/*": ["src/*"],
       "#/*": ["types/*"]
     },
+    // 指定jsx代码用于的开发环境: 'preserve', 'react-native', or 'react', Required in Vue projects use 'preserve'
     "jsx": "preserve",
+    // 用来指定编译时是否生成.map文件源映射文件
     "sourceMap": true,
+    // 是否允许把json文件当做模块进行解析
     "resolveJsonModule": true,
+    // 是否将每个文件作为单独的模块(Required in Vite use true)
     "isolatedModules": true,
+    // 是否允许使用 export = {} 导出，由 import from 对导入 CommonJS 模块的支持，需要同时开启 allowSyntheticDefaultImports 项
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],
     "skipLibCheck": true
   },
+    // 编译需要的文件或目录
   "include": ["./src/**/*","src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  // 排除不需编译的文件或目录
+  "exclude": [
+    "dist",
+    "manager",
+    "node_modules",
+    "**/node_modules/*",
+    "**/*.js"
+  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
