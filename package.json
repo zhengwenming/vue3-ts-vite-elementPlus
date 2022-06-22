@@ -23,6 +23,7 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "@types/node": "^18.0.0",
     "@vitejs/plugin-vue": "^2.3.3",
     "cross-env": "^7.0.3",
     "element-plus": "^2.2.6",
