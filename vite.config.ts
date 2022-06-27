@@ -1,7 +1,7 @@
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-const path = require("path");
+import {resolve} from 'path'
 interface ENV_PATH {
   env:string,
   baseUrl: string;
@@ -54,6 +54,12 @@ export default defineConfig({
     assetsDir: 'assets', // 指定生成静态资源的存放路径
     sourcemap: false, // 构建后是否生成 source map 文件
     minify: 'terser', // 混淆器，terser构建后文件体积更小
+    terserOptions:{
+      compress:{
+        drop_console:true,//生产环境移除console.log
+        drop_debugger:true//生产环境移除debugger
+      }
+    }
     // lib:{
     //   entry: './src/main.ts',
     //   formats: ['es'],
@@ -85,7 +91,7 @@ define: {
   // 添加 @, @/代表src目录
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      "@": resolve(__dirname, "./src"),
     },
   },
   css:{

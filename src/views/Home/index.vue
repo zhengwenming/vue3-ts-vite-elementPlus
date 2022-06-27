@@ -1,5 +1,6 @@
 <template>
-<div>home</div>
+  <div>home</div>
+  <img src="@/assets/logo.png" alt="logo">
 </template>
 
 <script lang="ts">
