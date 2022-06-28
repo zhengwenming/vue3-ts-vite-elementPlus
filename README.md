@@ -15,6 +15,10 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 
 You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/volar/discussions/471).
 
-不添加 element-plus     打包大小：365kb
-全局引入element-plus     打包大小：1.4MB
+
+## About build package size
+
+1、不添加element-plus                  打包大小：365kb
+2、全局引入element-plus                打包大小：1.4MB
+3、按需引入element-plus（4-6个组件）     打包大小：438kb
 
