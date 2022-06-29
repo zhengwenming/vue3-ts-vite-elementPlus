@@ -6,7 +6,7 @@ import ElementPlus from 'unplugin-element-plus/vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport  from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-
+import { visualizer } from 'rollup-plugin-visualizer';
 
 interface ENV_PATH {
   env:string,
@@ -50,7 +50,7 @@ switch (process.env.VUE_APP_API_ENV) {
       baseLink_hms: "https://medical-uat.aixin-ins.net/hm",
     };
 }
-
+const lifecycle = process.env.npm_lifecycle_event;
 // https://vitejs.dev/config/
 export default defineConfig({
   base: './',
@@ -115,12 +115,16 @@ define: {
   optimizeDeps: {
     include: ['axios'],
   },
+
   plugins: [
     vue(),
     // ElementPlus({
     //   // importStyle: 'sass',
     //   useSource: true
     // }),
+    lifecycle=== 'report'
+    ? visualizer({ open: true, brotliSize: true, filename: 'report.html'})
+    : null,
     AutoImport({
       resolvers: [ElementPlusResolver()]
     }),

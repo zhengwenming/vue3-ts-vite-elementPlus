@@ -2,6 +2,7 @@
 node_modules
 /manager
 
+report.html
 manager.zip
 # local env files
 .env.local
