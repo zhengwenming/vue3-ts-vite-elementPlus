@@ -8,14 +8,36 @@
       <h2 class="title" style="padding-top: 20px">系统登录</h2>
     </div>
     <el-button type="primary" @click="hello">登 录</el-button>
-    
+     <el-icon><i-ep-aim /></el-icon>
+    <el-icon :size="20"><i-carbon-accessibility /></el-icon>
+     <el-icon :size="20"><i-ic-baseline-5g /></el-icon>
+      <el-icon :size="20"><i-line-md-arrow-align-top /></el-icon>
 
+    <!-- <el-progress :percentage="50">
+      <el-button type="success">Content</el-button>
+    </el-progress>
+    <el-icon :size="88" color="red">
+       <ArrowAlignTop/>
+    </el-icon>
+    <IconBaseline5g />
+     <el-icon :size="20">
+         <i-carbon-accessibility />
+      </el-icon> -->
   </div>
 </template>
 <script setup lang="ts">
-    const hello = () => {
+// import {ElMessage } from 'element-plus'
+// import IconBaseline5g from '~icons/ic/baseline-5g'
+// import ArrowAlignTop from '~icons/line-md/arrow-align-top'
+// import {Avatar} from 'element-plus'
 
-    };
+const hello = () => {
+  // ElMessageBox('测试')
+// ElMessage({
+//   message: '登录成功',
+//   type: 'success',
+// })
+};
 </script>
 <style scoped lang="scss">
 .ms-login-back {

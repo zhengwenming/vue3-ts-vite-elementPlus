@@ -6,7 +6,11 @@ import '@vue/runtime-core'
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElButton: typeof import('element-plus/es')['ElButton']
-    ElProgress: typeof import('element-plus/es')['ElProgress']
+    ElIcon: typeof import('element-plus/es')['ElIcon']
+    ICarbonAccessibility: typeof import('~icons/carbon/accessibility')['default']
+    IEpAim: typeof import('~icons/ep/aim')['default']
+    IIcBaseline5g: typeof import('~icons/ic/baseline5g')['default']
+    ILineMdArrowAlignTop: typeof import('~icons/line-md/arrow-align-top')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
   }

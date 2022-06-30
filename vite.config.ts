@@ -2,11 +2,13 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import {resolve} from 'path'
-import ElementPlus from 'unplugin-element-plus/vite'
+// import ElementPlus from 'unplugin-element-plus/vite'
 import Components from 'unplugin-vue-components/vite'
 import AutoImport  from 'unplugin-auto-import/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer';
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
 
 interface ENV_PATH {
   env:string,
@@ -126,10 +128,11 @@ define: {
     ? visualizer({ open: true, brotliSize: true, filename: 'report.html'})
     : null,
     AutoImport({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver(),IconsResolver()],
     }),
     Components({
-      resolvers: [ElementPlusResolver()]
+      resolvers: [ElementPlusResolver(),IconsResolver()],
     }),
+    Icons({ autoInstall: true,compiler: 'vue3'}),
     ]
 })

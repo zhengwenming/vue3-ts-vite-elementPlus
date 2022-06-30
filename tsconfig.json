@@ -24,6 +24,7 @@
     "resolveJsonModule": true,
     // 是否将每个文件作为单独的模块(Required in Vite use true)
     "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
     // 是否允许使用 export = {} 导出，由 import from 对导入 CommonJS 模块的支持，需要同时开启 allowSyntheticDefaultImports 项
     "esModuleInterop": true,
     "lib": ["esnext", "dom"],

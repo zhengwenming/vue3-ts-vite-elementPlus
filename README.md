@@ -21,4 +21,34 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 1、不添加element-plus                  打包大小：365kb
 2、全局引入element-plus                打包大小：1.4MB
 3、按需引入element-plus（4-6个组件）     打包大小：438kb
+4、按需引入element-plus/icons-vue（2-3个组件）     打包大小：442kb
 
+
+
+## About element-plus-icon的按需导入
+1、配置好按需导入，直接使用
+ <el-icon :size="20"><i-carbon-accessibility /></el-icon>
+     <el-icon :size="20"><i-ic-baseline-5g /></el-icon>
+      <el-icon :size="20"><i-line-md-arrow-align-top /></el-icon>
+
+2、引入组件，直接使用引入后的组件
+ import IconBaseline5g from '~icons/ic/baseline-5g'
+ import ArrowAlignTop from '~icons/line-md/arrow-align-top'
+
+
+<IconBaseline5g />
+
+ <el-icon :size="88" color="red">
+       <ArrowAlignTop/>
+    </el-icon>
+
+
+
+##参考文章
+
+1、Vue3 ElementPlus 更加优雅的使用Icon https://crmeb.blog.csdn.net/article/details/123245221
+2、iconify地址 https://icon-sets.iconify.design
+
+3、report.html打包分析   https://segmentfault.com/a/1190000041564306
+
+4、vue3按需使用Element Plus的icon https://www.cnblogs.com/lovewhatIlove/p/16390357.html
