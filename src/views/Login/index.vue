@@ -4,18 +4,55 @@
     <div class="ms-logo"></div>
   </div>
   <div class="ms-login">
-    <div class="login-container">
-      <h2 class="title" style="padding-top: 20px">系统登录</h2>
-    </div>
-    <el-button type="primary" @click="hello">登 录</el-button>
+     <div class="login">
+            <div class="title">
+                爱心云健康<br />
+                后台管理系统
+            </div>
+            <el-form ref="form" :model="form" class="form">
+                <el-form-item prop="loginName" :rules="{ required: true, message: '请输入手机号', trigger: 'blur' }">
+                    <el-input maxlength="11" type="text" prefix-icon="el-icon-mobile-loginName" placeholder="请输入手机号" clearable :disabled="loading" v-model="form.loginName">
+                    </el-input>
+                </el-form-item>
+                <el-form-item prop="password" :rules="{ required: true, message: '请输入验证码', trigger: 'blur' }">
+                    <el-input type="text" prefix-icon="el-icon-lock" placeholder="请输入验证码" maxlength="4" clearable :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit">
+                        <el-button slot="append" :loading="codeLoading" v-text="btnText" @click.native="toSendSMSCode"></el-button>
+                    </el-input>
+                </el-form-item>
+
+                <el-form-item>
+                    <el-button :loading="loading" class="submit" type="primary" @click="onSubmit">{{loading ? '登录中，请稍候...' : '登录'}}</el-button>
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="build-version">
+            当前版本：<span v-text="projectVersion"></span>
+        </div>
+        <el-dialog :visible.sync="isVisibleRoleSelection" :close-on-click-modal="false" width="25%" title="请选择登录角色" custom-class="dialog-select-role" top="30vh">
+            <el-row class="dialog-body">
+                <el-radio-group v-model="roleToLogin">
+                    <el-radio v-for="info in userInfoList" :key="info.systemRole" :label="info.systemRole">{{ info.externalName }}</el-radio>
+                </el-radio-group>
+            </el-row>
+            <el-row slot="footer" class="dialog-footer">
+                <el-button @click.native="handleCancel">取消</el-button>
+                <el-button type="primary" @click.native="handleConfirm" :loading="loading">确定</el-button>
+            </el-row>
+        </el-dialog>
+    <!-- <el-button type="primary" @click="hello">登 录</el-button> -->
     
 
   </div>
 </template>
 <script setup lang="ts">
-    const hello = () => {
-
-    };
+  let  timer: any = null;
+  let codeLoading: Boolean = false;
+  let  btnText: String = '发送短信验证码';
+  let form = {loginName: '',password: '',};
+  let  loading: Boolean = false;
+   let isVisibleRoleSelection: boolean = false;
+   let roleToLogin: string = '';
+   let  userInfoList: Array<any> = [];
 </script>
 <style scoped lang="scss">
 .ms-login-back {
@@ -51,24 +88,48 @@
   border: 1px solid #eaeaea;
   box-shadow: 0 0 25px #cac6c6;
 
-  .login-container {
-    background-clip: padding-box;
-    width: 560px;
-    padding: 10px 20px 0px 20px;
-    // background: #fff;
-
+  .login {
+    background: rgba(255, 255, 255, 0.9);
+    width: 410px;
+    max-height: 360px;
+    // border: 1px solid #e6e6e6;
+    padding: 24px;
+    box-shadow: 1px 2px 12px rgba(0, 0, 0, 0.2);
     .title {
-      margin: 0px auto 30px auto;
+      line-height: 32px;
+      font-size: 28px;
+      color: $primaryColor;
+      margin-bottom: 30px;
       text-align: center;
-      color: #505458;
     }
+    .form {
+      width: 70%;
+      margin: 0 auto;
+      .submit {
+        margin-top: 10px;
+        width: 100%;
+      }
+    }
+  }
+  .build-version {
+    color: #949494;
+    position: absolute;
+    top: calc(50% + 210px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-    /*控制发送短信验证码按钮被点击后的按钮背景色*/
-    .disabled {
-      background-color: #ddd;
-      border-color: #ddd;
-      color: #57a3f3;
-      cursor: not-allowed; // 鼠标变化
+  .checkbox-as-manager {
+    justify-content: flex-start;
+    margin-bottom: 10px;
+    padding-right: 10px;
+    .checkbox {
+     .el-checkbox__input {
+        vertical-align: middle;
+      }
+       .el-checkbox__label {
+        color: #666;
+      }
     }
   }
 }
