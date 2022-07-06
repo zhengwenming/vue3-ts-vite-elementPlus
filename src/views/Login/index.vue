@@ -9,15 +9,18 @@
                 爱心云健康<br />
                 后台管理系统
             </div>
-            <el-form ref="form" :model="form" class="form">
+            <el-form ref="refform" :model="form" class="form">
                 <el-form-item prop="loginName" :rules="{ required: true, message: '请输入手机号', trigger: 'blur' }">
-                    <el-input maxlength="11" type="text" prefix-icon="el-icon-mobile-loginName" placeholder="请输入手机号" clearable :disabled="loading" v-model="form.loginName">
+                    <el-input maxlength="11" type="text" prefix-icon="user" placeholder="请输入手机号" clearable :disabled="loading" v-model="form.loginName">
                     </el-input>
                 </el-form-item>
                 <el-form-item prop="password" :rules="{ required: true, message: '请输入验证码', trigger: 'blur' }">
-                    <el-input type="text" prefix-icon="el-icon-lock" placeholder="请输入验证码" maxlength="4" clearable :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit">
-                        <el-button slot="append" :loading="codeLoading" v-text="btnText" @click.native="toSendSMSCode"></el-button>
+                    <el-input type="text" prefix-icon="lock" placeholder="请输入验证码" maxlength="4" clearable :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit">
+                      <template v-slot:append>
+                        <el-button  v-text="btnText" :loading="codeLoading"  @click.native="toSendSMSCode"></el-button>
+                      </template>
                     </el-input>
+
                 </el-form-item>
 
                 <el-form-item>
@@ -26,7 +29,7 @@
             </el-form>
         </div>
         <div class="build-version">
-            当前版本：<span v-text="projectVersion"></span>
+            当前版本：<span v-text="$projectVersion"></span>
         </div>
         <el-dialog :visible.sync="isVisibleRoleSelection" :close-on-click-modal="false" width="25%" title="请选择登录角色" custom-class="dialog-select-role" top="30vh">
             <el-row class="dialog-body">
@@ -45,14 +48,114 @@
   </div>
 </template>
 <script setup lang="ts">
+import {onBeforeUnmount,ref,reactive} from 'vue'
+import storage from '@/utils/storage';
+
   let  timer: any = null;
   let codeLoading: Boolean = false;
-  let  btnText: String = '发送短信验证码';
-  let form = {loginName: '',password: '',};
-  let  loading: Boolean = false;
-   let isVisibleRoleSelection: boolean = false;
-   let roleToLogin: string = '';
-   let  userInfoList: Array<any> = [];
+  let  btnText: String = ref('发送短信验证码');
+  let form = reactive({loginName: '',password: ''});
+  let  loading: Boolean = ref(false);
+   let isVisibleRoleSelection: boolean = ref(false);
+   let roleToLogin: string = ref('');
+   let  userInfoList: Array<any> = reactive([]);
+  
+   const onSubmit = ()=>{
+        let formData: any = $refs['refform'];
+        loading = true;
+        formData.validate((valid: Boolean) => {
+            if (valid) {
+                login({ ...form })
+                    .then((res) => {
+                        if (!res.data) return;
+                        if (Array.isArray(res.data)) {
+                            const tempUserInfoList = res.data;
+                            if (tempUserInfoList.length > 0) {
+                                userInfoList = tempUserInfoList;
+                                if (tempUserInfoList.length === 1) {
+                                    handleLoginSuccess(tempUserInfoList[0]);
+                                } else {
+                                    isVisibleRoleSelection = true;
+                                }
+                            }
+                        } else {
+                            handleLoginSuccess(res.data);
+                        }
+                    })
+                    .catch((err) => {
+                        form = {
+                            loginName: form.loginName,
+                            password: '',
+                        };
+                    })
+                    .finally(() => {
+                        loading = false;
+                    });
+            } else {
+                loading = false;
+            }
+        });
+    }
+   
+   const handleLoginSuccess = (userInfo: any)=>{
+        storage.setItem(tokenkey, userInfo.token);
+        storage.setItem('permision', JSON.stringify(userInfo.permision));
+        storage.setItem('userImId', userInfo.imId);
+        this.setUserInfo(userInfo);
+        this.loading = false;
+        this.$router.replace({ path: '/', query: {} });
+   }
+   const handleCancel = ()=>{
+            this.isVisibleRoleSelection = false;
+   }
+   const handleConfirm = ()=>{
+    if (this.roleToLogin && this.userInfoList) {
+            this.handleLoginSuccess(
+                this.userInfoList.find(
+                    (el) => el.systemRole === this.roleToLogin
+                )
+            );
+        }
+   }
+   onBeforeUnmount(() => {
+      clearInterval(timer);
+        timer = null;
+   })
+   const toSendSMSCode = ()=>{
+        if (timer !== null) return;
+
+        if (!form.loginName || form.loginName.length != 11) {
+            ElMessage({
+                type: 'error',
+                message: '请输入正确的手机号',
+            });
+            return
+        }
+        window.localStorage.removeItem('token');
+        codeLoading = true;
+        sendSMSCode({
+            phone: this.form.loginName,
+            type: 'Login',
+        })
+            .then((res) => {
+                codeLoading = false;
+                let seconds = 60;
+                btnText = `${seconds}s后重新发送`;
+                timer = setInterval(() => {
+                    seconds--;
+                    if (seconds <= 0) {
+                        clearInterval(timer);
+                        timer = null;
+                        btnText = '重新发送验证码';
+                    } else {
+                        btnText = `${seconds}s后重新发送`;
+                    }
+                }, 1000);
+            })
+            .catch((err) => {
+                codeLoading = false;
+            });
+    }
 </script>
 <style scoped lang="scss">
 .ms-login-back {
@@ -112,10 +215,10 @@
     }
   }
   .build-version {
-    color: #949494;
+    color: orange;
     position: absolute;
     top: calc(50% + 210px);
-    left: 50%;
+    left: 40%;
     transform: translate(-50%, -50%);
   }
 

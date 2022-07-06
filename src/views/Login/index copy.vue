@@ -26,17 +26,22 @@
   </div>
 </template>
 <script setup lang="ts">
+// 像El-Message这样的是不能自动引入的使用的时候还是要导入，
+// import { ElMessage } from 'element-plus' ，而且样式会失效，在main.ts文件中加入以下代码，引入消息的样式文件（如果文件路径报错，在node_modules/element-plus目录下找找看）
+// 参考链接：https://www.jianshu.com/p/13c405104ed8
 // import {ElMessage } from 'element-plus'
+// 备注：我发现文章中的说法有误，可以实现自动导入，样式也可以实现自动导入。在vite.config.ts中配置了自动导入后，直接使用ElMessage({message: '登录成功',type: 'success',})，无需import，无需关注样式，且样式不会丢失
+
 // import IconBaseline5g from '~icons/ic/baseline-5g'
 // import ArrowAlignTop from '~icons/line-md/arrow-align-top'
 // import {Avatar} from 'element-plus'
 
 const hello = () => {
   // ElMessageBox('测试')
-// ElMessage({
-//   message: '登录成功',
-//   type: 'success',
-// })
+ElMessage({
+  message: '登录成功',
+  type: 'success',
+})
 };
 </script>
 <style scoped lang="scss">

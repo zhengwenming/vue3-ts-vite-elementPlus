@@ -119,7 +119,7 @@ define: {
   },
 
   plugins: [
-    vue(),
+    vue(),// 自动导入vue相关函数
     // ElementPlus({
     //   // importStyle: 'sass',
     //   useSource: true
@@ -129,9 +129,13 @@ define: {
     : null,
     AutoImport({
       resolvers: [ElementPlusResolver(),IconsResolver()],
+      // 指定在什么目录生成 `auto-import.d.ts` 全局声明文件
+      // dts: "src/auto-import.d.ts", 
     }),
     Components({
       resolvers: [ElementPlusResolver(),IconsResolver()],
+      // 指定在什么目录生成 `components.d.ts` 全局声明文件
+      // dts: "src/components.d.ts",
     }),
     Icons({ autoInstall: true,compiler: 'vue3'}),
     ]

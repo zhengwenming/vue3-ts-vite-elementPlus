@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["element-plus/global"],//指定全局组件类型
     "target": "esnext",
     "useDefineForClassFields": true,
     // 生成代码的模板标准
