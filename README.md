@@ -88,3 +88,12 @@ https://www.jianshu.com/p/f558df2653af
 1、安装 npm install @element-plus/icons
 2、https://blog.csdn.net/qq_37213281/article/details/121422027?spm=1001.2014.3001.5502
 3、全局注册的element-icon在使用时候prefix-icon前不用加：，且User和user一样，大小写都可以。PS，动态分别引入组件（非全局）则需要加冒号：https://blog.csdn.net/qq_42461650/article/details/122148993?spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2-122148993-blog-121422027.pc_relevant_aa2&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7ECTRLIST%7Edefault-2-122148993-blog-121422027.pc_relevant_aa2&utm_relevant_index=5
+
+
+## el-dialog提示Missing required prop: “modelValue“警告
+visible属性废弃删除，该用v-model
+参考文章
+https://www.jianshu.com/p/e9747c7ec95c?u_atoken=b97c719f-8b7b-4304-9a79-e8880e0eff20&u_asession=01qjgZQIeqGC_Q2sXdtuE8qujAcqIXQdh65T7sL-bDnBOChI1Mw9401O_z6pGFTyBdX0KNBwm7Lovlpxjd_P_q4JsKWYrT3W_NKPr8w6oU7K-laNO7nP71YjgcilK_Q2TwPpcarp92QKzyJKyYjREPlmBkFo3NEHBv0PZUm6pbxQU&u_asig=05oQsxl1GVuo1JWKDnpb89Y66r2lnSDBEVrRQs38MsS_jDRVvWU0ZVkyRgXj1tCxbCaahFb1skZb5aWapnkiIjC64i1V3dNUd3C3FJ9gQcous5GuCraYjLhOFqB6eab4BuO1iyXspGedYRwVTF7iakhCJ-Ihv7_mv0XIpJxcVXosT9JS7q8ZD7Xtz2Ly-b0kmuyAKRFSVJkkdwVUnyHAIJzRgT5uO__Z8c79lzd3a4wEJObw86g_oQPoppj5vi1R_CWPRPQyB_SKrj-61LB_f61u3h9VXwMyh6PgyDIVSG1W9wSsXIpuMoO4x-0jGefFDAj7fGLiguhfvrRmLpZQrmWj2ODuXUcqqq-LGjl1z6oGC9TweUJymt6YMd7LNoMJT1mWspDxyAEEo4kbsryBKb9Q&u_aref=fWE9tOfJ48V0FSH8C9qubnb4wes%3D
+
+
+## Vuex的更新

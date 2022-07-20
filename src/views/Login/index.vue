@@ -31,7 +31,7 @@
         <div class="build-version">
             当前版本：<span v-text="$projectVersion"></span>
         </div>
-        <el-dialog :visible.sync="isVisibleRoleSelection" :close-on-click-modal="false" width="25%" title="请选择登录角色" custom-class="dialog-select-role" top="30vh">
+        <el-dialog v-model="isVisibleRoleSelection" :close-on-click-modal="false" width="25%" title="请选择登录角色" custom-class="dialog-select-role" top="30vh">
             <el-row class="dialog-body">
                 <el-radio-group v-model="roleToLogin">
                     <el-radio v-for="info in userInfoList" :key="info.systemRole" :label="info.systemRole">{{ info.externalName }}</el-radio>
@@ -48,21 +48,30 @@
   </div>
 </template>
 <script setup lang="ts">
-import {onBeforeUnmount,ref,reactive} from 'vue'
+import {ref,reactive,getCurrentInstance} from 'vue'
 import storage from '@/utils/storage';
+import tokenkey from '@/utils/token-key';
+import { log } from 'console';
+import { useStore } from "vuex";
 
-  let  timer: any = null;
-  let codeLoading: Boolean = false;
-  let  btnText: String = ref('发送短信验证码');
-  let form = reactive({loginName: '',password: ''});
-  let  loading: Boolean = ref(false);
-   let isVisibleRoleSelection: boolean = ref(false);
-   let roleToLogin: string = ref('');
-   let  userInfoList: Array<any> = reactive([]);
-  
+
+    let timer: any = null;
+    let codeLoading: Boolean = false;
+    let btnText = ref('发送短信验证码');
+    let form = reactive({loginName: '',password: ''});
+    let loading = ref(false);
+    let isVisibleRoleSelection = ref(false);
+    let roleToLogin = ref('');
+    let userInfoList: Array<any> = reactive([]);
+    const store = useStore();
    const onSubmit = ()=>{
+    const refform = ref(null)
+    // const {proxy} = getCurrentInstance();
+    debugger
+    console.log(refform.value);
+    
         let formData: any = $refs['refform'];
-        loading = true;
+        loading.value = true;
         formData.validate((valid: Boolean) => {
             if (valid) {
                 login({ ...form })
@@ -75,7 +84,7 @@ import storage from '@/utils/storage';
                                 if (tempUserInfoList.length === 1) {
                                     handleLoginSuccess(tempUserInfoList[0]);
                                 } else {
-                                    isVisibleRoleSelection = true;
+                                    isVisibleRoleSelection.value = true;
                                 }
                             }
                         } else {
@@ -89,39 +98,41 @@ import storage from '@/utils/storage';
                         };
                     })
                     .finally(() => {
-                        loading = false;
+                        loading.value = false;
                     });
             } else {
-                loading = false;
+                loading.value = false;
             }
         });
     }
    
-   const handleLoginSuccess = (userInfo: any)=>{
+  const handleLoginSuccess = (userInfo: any)=>{
         storage.setItem(tokenkey, userInfo.token);
         storage.setItem('permision', JSON.stringify(userInfo.permision));
         storage.setItem('userImId', userInfo.imId);
-        this.setUserInfo(userInfo);
-        this.loading = false;
-        this.$router.replace({ path: '/', query: {} });
+        setUserInfo(userInfo);
+        loading.value = false;
+        // $router.replace({ path: '/', query: {} });
    }
-   const handleCancel = ()=>{
-            this.isVisibleRoleSelection = false;
+   const handleCancel =()=>{
+            isVisibleRoleSelection.value = false;
    }
-   const handleConfirm = ()=>{
-    if (this.roleToLogin && this.userInfoList) {
-            this.handleLoginSuccess(
-                this.userInfoList.find(
-                    (el) => el.systemRole === this.roleToLogin
+   const handleConfirm =()=>{
+    if (roleToLogin && userInfoList) {
+            handleLoginSuccess(
+                userInfoList.find(
+                    (el) => el.systemRole ===roleToLogin
                 )
             );
         }
    }
-   onBeforeUnmount(() => {
+   const onBeforeUnmount =()=>{
       clearInterval(timer);
         timer = null;
-   })
-   const toSendSMSCode = ()=>{
+    }
+   const toSendSMSCode =()=>{
+    console.log('toSendSMSCode');
+    
         if (timer !== null) return;
 
         if (!form.loginName || form.loginName.length != 11) {
@@ -133,8 +144,8 @@ import storage from '@/utils/storage';
         }
         window.localStorage.removeItem('token');
         codeLoading = true;
-        sendSMSCode({
-            phone: this.form.loginName,
+        store.sendSMSCode({
+            phone: form.loginName,
             type: 'Login',
         })
             .then((res) => {
