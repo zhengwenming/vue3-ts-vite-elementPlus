@@ -1,7 +1,12 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+// reset css
 import "./assets/css/reset.scss";
+// 全局 css
 import "./assets/css/global.scss";
+// 使用 normalize.css 修改元素默认样式，达到多浏览器样式一致
+import "./assets/css/normalize.css";
+
 // 引入并安装路由插件
 import router from "@/router/index";
 
@@ -17,6 +22,7 @@ import * as ElIconModules from '@element-plus/icons'
 
 
 console.log('VUE_APP_API_ENV = '+process.env.env);
+// 创建一个根组件
 const app = createApp(App)
 
 
@@ -27,10 +33,13 @@ for(let iconName in ElIconModules){
   }
 
 
-//全局变量
+//配置全局变量
 const projectVersion = "v1.3release-2005262000";
 app.config.globalProperties.$projectVersion = projectVersion
-app.use(router).mount('#app')
+// 使用路由插件
+app.use(router)
+// 挂载到 #app 节点
+app.mount('#app')
 // app.use(ElementPlus, { size: 'small', zIndex: 3000 })
 // Object.keys(ElIcon).forEach(function (key) {
 //     app.component(ElIcon[key].name, ElIcon[key])
