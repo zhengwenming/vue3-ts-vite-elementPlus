@@ -97,3 +97,15 @@ https://www.jianshu.com/p/e9747c7ec95c?u_atoken=b97c719f-8b7b-4304-9a79-e8880e0e
 
 
 ## Vuex的更新
+
+
+
+##build打包报错
+在执行npm run build打包命令时由于使用了vue-tsc类型检查，会有提示 ”Please update to v0.35.0 or higher for TypeScript version: 4.7.4 “，按照提示语将vue-tsc依赖升级至 ^0.35.0 版本，typescript升级至 ^4.7.4 版本。
+
+
+##插槽使用
+
+        <template v-slot:append>
+          <el-button  v-text="btnText" :loading="codeLoading"  @click.native="toSendSMSCode"></el-button>
+        </template>

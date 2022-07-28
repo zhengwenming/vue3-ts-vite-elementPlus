@@ -11,11 +11,17 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
     name:'home',
+    meta:{
+      title:'首页'
+    },
     component: () => import("@/views/Home/index.vue")
   },
   {
     path: '/login',
     name:'login',
+    meta:{
+      title:'登录'
+    },
     component: () => import("@/views/Login/index.vue")
   },
     // 前面的路由都没有匹配到404 页面 

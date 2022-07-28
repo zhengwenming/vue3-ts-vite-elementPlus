@@ -1,5 +1,5 @@
 <template>
   <div>
-    关于页
+    header
   </div>
 </template>

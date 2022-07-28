@@ -6,21 +6,16 @@
   <div class="ms-login">
      <div class="login">
             <div class="title">
-                爱心云健康<br />
-                后台管理系统
+                <div>爱心云健康</div>
+                <div>后台管理系统</div>
             </div>
             <el-form ref="refform" :model="form" class="form">
-                <el-form-item prop="loginName" :rules="{ required: true, message: '请输入手机号', trigger: 'blur' }">
-                    <el-input maxlength="11" type="text" prefix-icon="user" placeholder="请输入手机号" clearable :disabled="loading" v-model="form.loginName">
-                    </el-input>
+                <el-form-item prop="userName" :rules="{required: true, message: '账号不能为空', trigger: 'blur'}">
+                    <el-input maxlength="20" prefix-icon="user" placeholder="请输入账号" clearable :disabled="loading" v-model="form.userName"></el-input>
                 </el-form-item>
-                <el-form-item prop="password" :rules="{ required: true, message: '请输入验证码', trigger: 'blur' }">
-                    <el-input type="text" prefix-icon="lock" placeholder="请输入验证码" maxlength="4" clearable :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit">
-                      <template v-slot:append>
-                        <el-button  v-text="btnText" :loading="codeLoading"  @click.native="toSendSMSCode"></el-button>
-                      </template>
-                    </el-input>
 
+                <el-form-item prop="password" :rules="{required: true, message: '密码不能为空', trigger: 'blur'}">
+                    <el-input type="password" prefix-icon="lock" placeholder="请输入密码" maxlength="20" clearable :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit"></el-input>
                 </el-form-item>
 
                 <el-form-item>
@@ -42,131 +37,49 @@
                 <el-button type="primary" @click.native="handleConfirm" :loading="loading">确定</el-button>
             </el-row>
         </el-dialog>
-    <!-- <el-button type="primary" @click="hello">登 录</el-button> -->
-    
-
   </div>
 </template>
 <script setup lang="ts">
 import {ref,reactive,getCurrentInstance} from 'vue'
 import storage from '@/utils/storage';
 import tokenkey from '@/utils/token-key';
-import { log } from 'console';
 import { useStore } from "vuex";
-
-
-    let timer: any = null;
-    let codeLoading: Boolean = false;
-    let btnText = ref('发送短信验证码');
-    let form = reactive({loginName: '',password: ''});
+import { useRoute } from 'vue-router';
+import { de } from 'element-plus/es/locale';
+const router =  useRoute();
+debugger
+    let form = reactive({userName: 'admin',password: '123456'});
     let loading = ref(false);
     let isVisibleRoleSelection = ref(false);
     let roleToLogin = ref('');
     let userInfoList: Array<any> = reactive([]);
     const store = useStore();
    const onSubmit = ()=>{
-    const refform = ref(null)
-    // const {proxy} = getCurrentInstance();
-    debugger
-    console.log(refform.value);
-    
-        let formData: any = $refs['refform'];
+         const refform = ref(null)
+         debugger
+        console.log(refform.value);
         loading.value = true;
-        formData.validate((valid: Boolean) => {
-            if (valid) {
-                login({ ...form })
-                    .then((res) => {
-                        if (!res.data) return;
-                        if (Array.isArray(res.data)) {
-                            const tempUserInfoList = res.data;
-                            if (tempUserInfoList.length > 0) {
-                                userInfoList = tempUserInfoList;
-                                if (tempUserInfoList.length === 1) {
-                                    handleLoginSuccess(tempUserInfoList[0]);
-                                } else {
-                                    isVisibleRoleSelection.value = true;
-                                }
-                            }
-                        } else {
-                            handleLoginSuccess(res.data);
-                        }
-                    })
-                    .catch((err) => {
-                        form = {
-                            loginName: form.loginName,
-                            password: '',
-                        };
-                    })
-                    .finally(() => {
-                        loading.value = false;
-                    });
-            } else {
-                loading.value = false;
-            }
-        });
-    }
-   
-  const handleLoginSuccess = (userInfo: any)=>{
-        storage.setItem(tokenkey, userInfo.token);
-        storage.setItem('permision', JSON.stringify(userInfo.permision));
-        storage.setItem('userImId', userInfo.imId);
-        setUserInfo(userInfo);
+    
+        storage.setItem(tokenkey, 'token');
+        storage.setItem('password', form.password);
+        storage.setItem('userName', form.userName);
+
         loading.value = false;
         // $router.replace({ path: '/', query: {} });
-   }
+        router.push('home');
+    }
+   
+  
    const handleCancel =()=>{
             isVisibleRoleSelection.value = false;
    }
    const handleConfirm =()=>{
     if (roleToLogin && userInfoList) {
-            handleLoginSuccess(
-                userInfoList.find(
+            userInfoList.find(
                     (el) => el.systemRole ===roleToLogin
                 )
-            );
         }
    }
-   const onBeforeUnmount =()=>{
-      clearInterval(timer);
-        timer = null;
-    }
-   const toSendSMSCode =()=>{
-    console.log('toSendSMSCode');
-    
-        if (timer !== null) return;
-
-        if (!form.loginName || form.loginName.length != 11) {
-            ElMessage({
-                type: 'error',
-                message: '请输入正确的手机号',
-            });
-            return
-        }
-        window.localStorage.removeItem('token');
-        codeLoading = true;
-        store.sendSMSCode({
-            phone: form.loginName,
-            type: 'Login',
-        })
-            .then((res) => {
-                codeLoading = false;
-                let seconds = 60;
-                btnText = `${seconds}s后重新发送`;
-                timer = setInterval(() => {
-                    seconds--;
-                    if (seconds <= 0) {
-                        clearInterval(timer);
-                        timer = null;
-                        btnText = '重新发送验证码';
-                    } else {
-                        btnText = `${seconds}s后重新发送`;
-                    }
-                }, 1000);
-            })
-            .catch((err) => {
-                codeLoading = false;
-            });
-    }
 </script>
 <style scoped lang="scss">
 .ms-login-back {
