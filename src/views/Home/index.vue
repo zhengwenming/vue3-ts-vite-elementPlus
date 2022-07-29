@@ -1,17 +1,32 @@
 <template>
-  <div>home</div>
-  <img src="@/assets/logo.png" alt="logo">
+    <el-container class="container">
+      <el-aside class="left-aside">
+        <side-bar></side-bar>
+      </el-aside>
+      <el-container>
+        <el-header class="top-header">Header</el-header>
+        <el-main>Main</el-main>
+        <el-footer class="bottom-footer">Footer</el-footer>
+      </el-container>
+    </el-container>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-export default defineComponent({
-  name: "Home",
-  components: {  },
-  setup() {
-    return {
-      msg: "hello World",
-    };
-  },
-});
+<script setup lang="ts">
+  import SideBar from "@/layouts/SideBar/index.vue"
 </script>
+
+<style  scoped lang="scss">
+  .container{
+    height:100%;
+    .left-aside{
+      background:rgb(48, 65, 86);
+      max-width:200px;
+    }
+    .top-header{
+      background:cyan;
+    }
+    .bottom-footer{
+      background:red;
+    }
+  }
+</style>

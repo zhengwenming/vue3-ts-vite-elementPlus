@@ -82,7 +82,7 @@ You can learn more about Take Over mode [here](https://github.com/johnsoncodehk/
 成功解决不显示问题。
 
 https://www.jianshu.com/p/f558df2653af
-```
+
 
 ## vue3+element-plus里prefix-icon图标使用不显示的问题
 1、安装 npm install @element-plus/icons
@@ -98,19 +98,17 @@ https://www.jianshu.com/p/e9747c7ec95c?u_atoken=b97c719f-8b7b-4304-9a79-e8880e0e
 
 ## Vuex的更新
 
-
-
 ##build打包报错
 在执行npm run build打包命令时由于使用了vue-tsc类型检查，会有提示 ”Please update to v0.35.0 or higher for TypeScript version: 4.7.4 “，按照提示语将vue-tsc依赖升级至 ^0.35.0 版本，typescript升级至 ^4.7.4 版本。
 
 
-##插槽使用
+## 插槽使用
 
         <template v-slot:append>
           <el-button  v-text="btnText" :loading="codeLoading"  @click.native="toSendSMSCode"></el-button>
         </template>
 
-##vue3.0最新版本，ref获取元素方法
+## vue3.0最新版本，ref获取元素方法
 
 最近随着vue3.2版本继续更新，好久都没学习了，想着回去复习一下，结果发现有些方法已经发生了变动，记录一下，首先是ref获取元素方法。
 之前vue3刚发布的时候获取的方式 ,<h1 :ref="Ref">{{ msg }}</h1> 然后在setup函数中直接定义Reflet Ref=ref(null)这样就获取完成了。
@@ -119,7 +117,7 @@ https://www.jianshu.com/p/e9747c7ec95c?u_atoken=b97c719f-8b7b-4304-9a79-e8880e0e
 版权声明：本文为CSDN博主「重點保護對象」的原创文章，遵循CC 4.0 BY-SA版权协议，转载请附上原文出处链接及本声明。
 原文链接：https://blog.csdn.net/cuixifeng/article/details/122299402
 
-坑！！！ 原生dom才行，el-form之类的封装组件获取不到
+坑！！！ 原生dom用:ref="xxx"，el-form之类的封装组件验证表单时用 ref="xxx".
 
-##隐藏红色小星星*
+## 隐藏红色小星星*
 el-form-item 给label属性后，设置这个属性才生效，才有意义hide-required-asterisk="true"

@@ -5,11 +5,11 @@
   </div>
   <div class="ms-login">
      <div class="login">
-            <div :ref="refform" class="title">
+            <div class="title">
                 <div>爱心云健康</div>
                 <div>后台管理系统</div>
             </div>
-            <el-form  :model="form" :rules="rules" class="form" size="default" status-icon :hide-required-asterisk="false">
+            <el-form ref="ruleFormRef" :model="form" :rules="rules" class="form" size="default" status-icon :hide-required-asterisk="false">
                 <!-- <el-form-item prop="userName" :rules="{required: true, message: '账号不能为空', trigger: 'blur'}"> -->
                 <el-form-item prop="userName" label="账号">
                     <el-input maxlength="20" prefix-icon="user" placeholder="请输入账号" clearable :disabled="loading" v-model="form.userName"></el-input>
