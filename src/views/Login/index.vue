@@ -5,21 +5,22 @@
   </div>
   <div class="ms-login">
      <div class="login">
-            <div class="title">
+            <div :ref="refform" class="title">
                 <div>爱心云健康</div>
                 <div>后台管理系统</div>
             </div>
-            <el-form ref="refform" :model="form" class="form">
-                <el-form-item prop="userName" :rules="{required: true, message: '账号不能为空', trigger: 'blur'}">
+            <el-form  :model="form" :rules="rules" class="form" size="default" status-icon :hide-required-asterisk="false">
+                <!-- <el-form-item prop="userName" :rules="{required: true, message: '账号不能为空', trigger: 'blur'}"> -->
+                <el-form-item prop="userName" label="账号">
                     <el-input maxlength="20" prefix-icon="user" placeholder="请输入账号" clearable :disabled="loading" v-model="form.userName"></el-input>
                 </el-form-item>
 
-                <el-form-item prop="password" :rules="{required: true, message: '密码不能为空', trigger: 'blur'}">
-                    <el-input type="password" prefix-icon="lock" placeholder="请输入密码" maxlength="20" clearable :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit"></el-input>
+                <el-form-item prop="password" label="密码">
+                    <el-input type="password" prefix-icon="lock" placeholder="请输入密码" clearable maxlength="20"  :disabled="loading" v-model="form.password" @keyup.enter.native="onSubmit"></el-input>
                 </el-form-item>
 
                 <el-form-item>
-                    <el-button :loading="loading" class="submit" type="primary" @click="onSubmit">{{loading ? '登录中，请稍候...' : '登录'}}</el-button>
+                    <el-button :loading="loading" class="submit" type="primary" @click="onSubmit(ruleFormRef)">{{loading ? '登录中，请稍候...' : '登录'}}</el-button>
                 </el-form-item>
             </el-form>
         </div>
@@ -41,26 +42,57 @@
 </template>
 <script setup lang="ts">
 import {ref,reactive,getCurrentInstance} from 'vue'
+import type {FormRules,FormInstance } from 'element-plus'
 import storage from '@/utils/storage';
-import tokenkey from '@/utils/token-key';
 import { useStore } from "vuex";
-import { useRoute } from 'vue-router';
-import { de } from 'element-plus/es/locale';
-const router =  useRoute();
-debugger
-    let form = reactive({userName: 'admin',password: '123456'});
+import { useRouter } from 'vue-router';
+
+    const router =  useRouter();
+    const form = reactive({userName: 'admin',password: '123456'});
     let loading = ref(false);
     let isVisibleRoleSelection = ref(false);
     let roleToLogin = ref('');
     let userInfoList: Array<any> = reactive([]);
-    const store = useStore();
-   const onSubmit = ()=>{
-         const refform = ref(null)
-         debugger
-        console.log(refform.value);
+const ruleFormRef = ref<FormInstance>()
+const rules = reactive<FormRules>({
+  userName: [
+    {required: true, message: '账号不能为空', trigger: 'blur'},
+    { min: 3, max: 10, message: 'Length should be 3 to 10', trigger: 'blur' },
+  ],
+  password: [
+    {required: true, message: '密码不能为空', trigger: 'blur'},
+    { min: 3, max: 10, message: 'Length should be 3 to 10', trigger: 'blur' },
+  ],
+})
+
+
+
+     let refform = (el)=>{ 
+      console.log(el)
+      }
+    const onSubmit =  (formEl: FormInstance | undefined)=>{
+
+// ruleForm.validate().then((valid: boolean) => {
+//                 if (valid) {
+//                     if (state.form.email === 'admin') {
+//                         router.push({ path: '/' });
+//                     }
+//                 }
+//             });
+
+
+
+
+      debugger
+        if (!formEl) return
+          formEl.validate((valid, fields) => {
+             if (valid) {
+                 console.log('submit!')
+             } else {
+                 console.log('error submit!', fields)
+             }
+          })
         loading.value = true;
-    
-        storage.setItem(tokenkey, 'token');
         storage.setItem('password', form.password);
         storage.setItem('userName', form.userName);
 
