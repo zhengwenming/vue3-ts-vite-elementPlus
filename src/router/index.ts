@@ -14,7 +14,25 @@ const routes: Array<RouteRecordRaw> = [
     meta:{
       title:'首页'
     },
-    component: () => import("@/views/Home/index.vue")
+    component: () => import("@/views/Home/index.vue"),
+    children: [
+      {
+        path: '/article',
+        name:'article',
+        meta:{
+          title:'系统设置'
+        },
+        component: () => import("@/views/Article/index.vue")
+      },
+      {
+        path: '/setting',
+        name:'setting',
+        meta:{
+          title:'系统设置'
+        },
+        component: () => import("@/views/Setting/index.vue")
+      },
+    ],
   },
   {
     path: '/login',
