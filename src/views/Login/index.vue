@@ -80,10 +80,6 @@ const rules = reactive<FormRules>({
 //                 }
 //             });
 
-
-
-
-      debugger
         if (!formEl) return
           formEl.validate((valid, fields) => {
              if (valid) {
@@ -98,7 +94,7 @@ const rules = reactive<FormRules>({
 
         loading.value = false;
         // $router.replace({ path: '/', query: {} });
-        router.push('home');
+        router.push('/main');
     }
    
   

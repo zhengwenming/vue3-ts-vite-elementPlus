@@ -28,7 +28,6 @@
         <el-icon><location /></el-icon>
         <span>文章管理</span>
       </template>
-      <el-icon><location /></el-icon>
         <el-menu-item index="/article">
           <template #title>
             <el-icon><Message /></el-icon>
@@ -56,10 +55,9 @@
         <el-menu-item index="1-4-1">item one</el-menu-item>
       </el-sub-menu>
     </el-sub-menu>
-    
     <el-sub-menu index="2">
       <template #title>
-        <el-icon><icon-menu /></el-icon>
+        <el-icon><IconMenu /></el-icon>
         <span>轮播图管理</span>
       </template>
 

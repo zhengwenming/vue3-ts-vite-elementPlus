@@ -9,13 +9,29 @@ const routes: Array<RouteRecordRaw> = [
     name:'/',
   },
   {
-    path: '/home',
-    name:'home',
+    path: '/main',
+    name:'main',
+    //路由独享守卫（如果进入主页面，立马进入触发二级路由页面home）
+    beforeEnter:((to,from,next)=>{
+      if (to.path==='/main') {
+        router.push('/home')
+      } else {
+          next()
+      }
+  }),
     meta:{
       title:'首页'
     },
-    component: () => import("@/views/Home/index.vue"),
+    component: () => import("@/layouts/Main/index.vue"),
     children: [
+      {
+        path: '/home',
+        name:'home',
+        meta:{
+          title:'首页'
+        },
+        component: () => import("@/views/Home/index.vue")
+      },
       {
         path: '/article',
         name:'article',
