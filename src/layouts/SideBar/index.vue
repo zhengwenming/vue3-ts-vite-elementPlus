@@ -10,10 +10,6 @@
     @open="handleOpen"
     @close="handleClose"
   >
-  <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-    <el-radio-button :label="false">expand</el-radio-button>
-    <el-radio-button :label="true">collapse</el-radio-button>
-  </el-radio-group>
     <div class="web-title">
       <span v-show="!isCollapse">后台管理系统</span>
       <span v-show="isCollapse">Admin</span>
@@ -84,7 +80,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { ref,defineProps } from 'vue'
 import {
   Document,
   Menu as IconMenu,
@@ -92,13 +88,28 @@ import {
   Setting,
 } from '@element-plus/icons-vue'
 
-const isCollapse = ref(false)
+// 声明 props
+const props = defineProps({
+  isCollapse:{
+   type:Boolean,
+   default:false
+  }
+})
+// 将 props.isCollapse 转为响应式变量
+const isCollapse = ref(props.isCollapse)
+
 const handleOpen = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
 const handleClose = (key: string, keyPath: string[]) => {
   console.log(key, keyPath)
 }
+const setIsCollapse = (collapse: boolean) => {
+  // 修改 isCollapse
+  isCollapse.value = collapse
+}
+// 暴露属性和方法，提供父组件访问
+defineExpose({ setIsCollapse })
 </script>
 
 <style lang="scss" scoped>
@@ -109,7 +120,7 @@ const handleClose = (key: string, keyPath: string[]) => {
   align-items: center;
   box-sizing: border-box;
   justify-content: center;
-  border-bottom: 1px solid var(--el-menu-border-color);
+  border-bottom: 0.5px solid var(--el-menu-border-color);
   background-color: rgb(48, 65, 86);
   color: white;
 }

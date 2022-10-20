@@ -1,9 +1,14 @@
 <template>
-    <div class="article">
-      文章
-    </div>
+     <WangEditor></WangEditor>
   </template>
+<script setup lang="ts">
+import WangEditor from '@/components/WangEditor/index.vue'
 
+
+// const onSubmit = () => {
+//   alert("发布成功")
+// }
+</script>
 <style lang="scss" scoped>
 .article {
     width: 100%;
